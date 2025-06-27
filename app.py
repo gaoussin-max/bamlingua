@@ -11,15 +11,15 @@ MODEL_PATH = "bambara-translator/model.safetensors"
 
 # Télécharger le modèle s'il n'existe pas déjà
 if not os.path.exists(MODEL_PATH):
-    os.makedirs("bambara_model", exist_ok=True)
+    os.makedirs("model.safetensors", exist_ok=True)
     print("🔽 Téléchargement du modèle depuis Google Drive...")
     gdown.download(MODEL_URL, MODEL_PATH, quiet=False)
 
 # Ensuite charge ton modèle
 from transformers import AutoTokenizer, AutoModelForSeq2SeqLM
 
-model = AutoModelForSeq2SeqLM.from_pretrained("bambara_model")
-tokenizer = AutoTokenizer.from_pretrained("bambara_model")
+model = AutoModelForSeq2SeqLM.from_pretrained("model.safetensors")
+tokenizer = AutoTokenizer.from_pretrained("model.safetensors")
 # Charger le modèle
 model_path = "./bambara-translator"
 tokenizer = MarianTokenizer.from_pretrained(model_path)
@@ -43,7 +43,7 @@ def traduire():
     return jsonify({"traduction": traduction})
 
 
-
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port)
+           
