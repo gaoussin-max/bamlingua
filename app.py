@@ -6,8 +6,8 @@ import gdown
 app = Flask(__name__)
 
 
-MODEL_URL = "https://drive.google.com/uc?id=1x2YzABCDEFgHIJKlmNOPQRStUvWxYZab"
-MODEL_PATH = "bambara_model/model.safetensors"
+MODEL_URL = "https://drive.google.com/uc?id=1dJzq9ixrvTL0eAtKzwrm1RfGqtknfoKV"
+MODEL_PATH = "bambara-translator/model.safetensors"
 
 # Télécharger le modèle s'il n'existe pas déjà
 if not os.path.exists(MODEL_PATH):
@@ -44,3 +44,4 @@ def traduire():
 
 if __name__ == '__main__':
     app.run(debug=True)
+    
