@@ -1,8 +1,25 @@
 from flask import Flask, request, jsonify
 from transformers import MarianMTModel, MarianTokenizer
+import os
+import gdown
 
 app = Flask(__name__)
 
+
+MODEL_URL = "https://drive.google.com/uc?id=1x2YzABCDEFgHIJKlmNOPQRStUvWxYZab"
+MODEL_PATH = "bambara_model/model.safetensors"
+
+# Télécharger le modèle s'il n'existe pas déjà
+if not os.path.exists(MODEL_PATH):
+    os.makedirs("bambara_model", exist_ok=True)
+    print("🔽 Téléchargement du modèle depuis Google Drive...")
+    gdown.download(MODEL_URL, MODEL_PATH, quiet=False)
+
+# Ensuite charge ton modèle
+from transformers import AutoTokenizer, AutoModelForSeq2SeqLM
+
+model = AutoModelForSeq2SeqLM.from_pretrained("bambara_model")
+tokenizer = AutoTokenizer.from_pretrained("bambara_model")
 # Charger le modèle
 model_path = "./bambara-translator"
 tokenizer = MarianTokenizer.from_pretrained(model_path)
